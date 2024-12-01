@@ -46,7 +46,7 @@ def get_long_tune(CP, params):
   kdV = [0.]
   if CP.carFingerprint in TSS2_CAR:
     kiBP = [0.,   2.,    3.,    5.,    8.,     12.,   20.,   27.]
-    kiV = [0.327, 0.297, 0.276, 0.2405,  0.225,  0.205,  0.17, 0.10]
+    kiV = [0.327, 0.297, 0.276, 0.238,  0.225,  0.205,  0.17, 0.10]
     kdV = [0.25 / 4]
 
     # Since we compensate for imprecise acceleration in carcontroller and error correct on aEgo, we can avoid using gains
