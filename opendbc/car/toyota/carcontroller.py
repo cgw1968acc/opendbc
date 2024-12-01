@@ -40,6 +40,7 @@ MAX_LTA_DRIVER_TORQUE_ALLOWANCE = 150  # slightly above steering pressed allows 
 LEFT_BLINDSPOT = b"\x41"
 RIGHT_BLINDSPOT = b"\x42"
 
+#this is where you do custom tune
 def get_long_tune(CP, params):
   kiBP = [0.]
   kdBP = [0.]
