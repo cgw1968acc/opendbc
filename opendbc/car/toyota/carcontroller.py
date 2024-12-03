@@ -21,7 +21,7 @@ GearShifter = structs.CarState.GearShifter
 
 # The up limit allows the brakes/gas to unwind quickly leaving a stop,
 # the down limit roughly matches the rate of ACCEL_NET, reducing PCM compensation windup
-ACCEL_WINDUP_LIMIT = 6.0 * DT_CTRL * 3  # m/s^2 / frame
+ACCEL_WINDUP_LIMIT = 4.0 * DT_CTRL * 3  # m/s^2 / frame
 ACCEL_WINDDOWN_LIMIT = -4.0 * DT_CTRL * 3  # m/s^2 / frame
 
 # LKA limits
@@ -47,7 +47,9 @@ def get_long_tune(CP, params):
   if CP.carFingerprint in TSS2_CAR:
     kiBP = [0.,   0.4,   1.,   4.,   14.,   20.,   27.]
     kiV = [0.325,  0.349, 0.331, 0.22, 0.212,  0.17, 0.10]
-    kdV = [0.25 / 3]
+    kdV = [0.25 / 4]
+    #kiV = [0.5]
+    #kdV = [0.25 / 4]
 
     # Since we compensate for imprecise acceleration in carcontroller and error correct on aEgo, we can avoid using gains
     if CP.flags & ToyotaFlags.RAISED_ACCEL_LIMIT:
@@ -311,9 +313,9 @@ class CarController(CarControllerBase):
         # Along with rate limiting positive jerk above, this greatly improves gas response time
         # Consider the net acceleration request that the PCM should be applying (pitch included)
         net_acceleration_request_min = min(actuators.accel + accel_due_to_pitch, net_acceleration_request)
-        if net_acceleration_request_min < 0.1 or stopping or not CC.longActive:
+        if net_acceleration_request_min < 0.2 or stopping or not CC.longActive:
           self.permit_braking = True
-        elif net_acceleration_request_min > 0.2:
+        elif net_acceleration_request_min > 0.3:
           self.permit_braking = False
 
         pcm_accel_cmd = clip(pcm_accel_cmd, self.params.ACCEL_MIN, self.params.ACCEL_MAX)
