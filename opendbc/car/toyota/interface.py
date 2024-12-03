@@ -149,7 +149,7 @@ class CarInterface(CarInterfaceBase):
 
     if candidate in TSS2_CAR:
       ret.vEgoStopping = 0.10
-      ret.vEgoStarting = 0.10
+      ret.vEgoStarting = 0.05
       ret.stoppingDecelRate = 0.1  # reach stopping target smoothly
 
       # Hybrids have much quicker longitudinal actuator response
